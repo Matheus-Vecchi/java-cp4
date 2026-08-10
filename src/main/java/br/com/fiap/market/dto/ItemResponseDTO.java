@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class ItemResponseDTO {
     // o mesmo contexto do outro que eu falei, esse aqui é pra devolver dados no get
-    private String id;
+    private Long id;
     private String nome;
     private String tipo;
     private String setor;
