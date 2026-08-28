@@ -59,7 +59,7 @@
         </a>
 
 
-        <!-- ADMIN AUTENTICADO -->
+        <!-- USUÁRIO AUTENTICADO -->
 
         <form
                 th:if="${autenticado}"
@@ -151,7 +151,7 @@
 
             <a
                     class="new-product"
-                    th:if="${autenticado}"
+                    th:if="${admin}"
                     th:href="@{/itens/novo}">
 
                 Novo produto
@@ -337,11 +337,11 @@
 
 
 
-                <!-- AÇÕES DO ADMIN -->
+                <!-- AÇÕES EXCLUSIVAS DO ADMIN -->
 
                 <div
                         class="actions"
-                        th:if="${autenticado}">
+                        th:if="${admin}">
 
 
                     <a
@@ -381,11 +381,11 @@
 
 
 
-                <!-- MODO VISITANTE -->
+                <!-- USER / VISITANTE -->
 
                 <div
                         class="visitor-mode"
-                        th:if="${!autenticado}">
+                        th:if="${!admin}">
 
                     Somente visualização
 
@@ -419,9 +419,10 @@
                 </h3>
 
 
+
                 <!-- ADMIN -->
 
-                <th:block th:if="${autenticado}">
+                <th:block th:if="${admin}">
 
                     <p>
 
@@ -439,6 +440,21 @@
                         Cadastrar produto
 
                     </a>
+
+                </th:block>
+
+
+
+                <!-- USER -->
+
+                <th:block th:if="${autenticado and !admin}">
+
+                    <p>
+
+                        Ainda não existem produtos disponíveis
+                        para visualização no catálogo.
+
+                    </p>
 
                 </th:block>
 

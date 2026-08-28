@@ -129,9 +129,20 @@
             </div>
 
 
+            <div
+                    class="login-message login-success"
+                    th:if="${param.cadastro}">
+
+                Conta criada com sucesso. Faça seu login.
+
+            </div>
+
+
 
             <form
-                    th:action="@{/login}" method="post">
+                    th:action="@{/login}"
+                    method="post">
+
 
                 <div class="login-field">
 
@@ -178,6 +189,36 @@
                     Entrar no sistema
 
                 </button>
+
+
+                <div style="margin-top: 24px; text-align: center;">
+
+                    <span style="
+                        color: var(--muted);
+                        font-size: 13px;
+                    ">
+
+                        Ainda não possui uma conta?
+
+                    </span>
+
+
+                    <a
+                            th:href="@{/cadastro}"
+                            style="
+                                margin-left: 6px;
+                                color: var(--ink);
+                                font-size: 13px;
+                                font-weight: 900;
+                                text-decoration: underline;
+                                text-underline-offset: 4px;
+                            ">
+
+                        Criar conta →
+
+                    </a>
+
+                </div>
 
 
             </form>
