@@ -1164,16 +1164,16 @@ A aplicação será disponibilizada através de um ambiente externo para permiti
 Substituir o endereço abaixo após concluir o deploy:
 
 ```text
-COLE_AQUI_O_LINK_DO_DEPLOY
+java-cp4-production.up.railway.app
 ```
 
 Link:
 
 ```markdown
-[Market Express API - Deploy](COLE_AQUI_O_LINK_DO_DEPLOY)
+[Market Express API - Deploy](java-cp4-production.up.railway.app)
 ```
 
-[Market Express API - Deploy](COLE_AQUI_O_LINK_DO_DEPLOY)
+[Market Express API - Deploy](java-cp4-production.up.railway.app)
 
 ---
 
@@ -1182,19 +1182,25 @@ Link:
 Após a publicação, o endpoint principal será:
 
 ```text
-COLE_AQUI_O_LINK_DO_DEPLOY/mercado
+java-cp4-production.up.railway.app/mercado
 ```
 
 Exemplo de consulta:
 
 ```http
-GET COLE_AQUI_O_LINK_DO_DEPLOY/mercado
+GET java-cp4-production.up.railway.app/mercado
 ```
 
 Busca por ID:
 
 ```http
-GET COLE_AQUI_O_LINK_DO_DEPLOY/mercado/1
+GET java-cp4-production.up.railway.app/mercado/1
+```
+
+Criação do dado:
+
+```http
+POST java-cp4-production.up.railway.app/mercado
 ```
 
 ---
@@ -1337,6 +1343,7 @@ Body:
 | Matheus de Mattos Vecchi | RM561716 |
 | Nicholas Albuquerque Buzo | RM561082|
 | Nicholas Camillo Canadas de Paula | RM561262 |
+| Pedro dos Anjos | RM563832 |
 
 ---
 

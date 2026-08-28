@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0">
+
+    <title>Editar produto | Market Express</title>
+
+    <link
+            rel="stylesheet"
+            href="/css/style.css"
+            th:href="@{/css/style.css}">
+
+</head>
+
+<body>
+
+
+<header class="topbar">
+
+    <a
+            class="brand"
+            th:href="@{/itens}">
+
+        <span>MARKET<span class="brand-slash">/</span></span>
+        <span>EXPRESS</span>
+
+    </a>
+
+
+    <div class="topbar-center">
+        Product editor / update
+    </div>
+
+
+    <div class="topbar-actions">
+
+        <a
+                class="topbar-action"
+                th:href="@{/itens}">
+
+            ← Catálogo
+
+        </a>
+
+    </div>
+
+</header>
+
+
+
+<main class="form-shell">
+
+    <div class="form-grid">
+
+
+        <section>
+
+            <div class="form-kicker">
+                Atualização de registro
+            </div>
+
+
+            <h1 class="form-title">
+
+                Edite o<br>
+
+                <span class="outline">
+                    produto.
+                </span>
+
+            </h1>
+
+
+            <p class="form-description">
+
+                Atualize as informações cadastradas.
+                As alterações serão refletidas diretamente no catálogo.
+
+            </p>
+
+
+
+            <form
+                    class="editor-form"
+                    th:action="@{/itens/{id}/editar(id=${item.id})}"
+                    method="post">
+
+
+                <input
+                        type="hidden"
+                        name="_method"
+                        value="put">
+
+
+
+                <div class="form-row">
+
+                    <div class="form-label-area">
+
+                        <label for="nome">
+                            Nome
+                        </label>
+
+                        <span class="field-code">
+                            field / product_name
+                        </span>
+
+                    </div>
+
+
+                    <input
+                            class="form-control"
+                            type="text"
+                            id="nome"
+                            name="nome"
+                            th:value="${item.nome}"
+                            required>
+
+                </div>
+
+
+
+                <div class="form-row">
+
+                    <div class="form-label-area">
+
+                        <label for="tipo">
+                            Tipo
+                        </label>
+
+                        <span class="field-code">
+                            field / category
+                        </span>
+
+                    </div>
+
+
+                    <input
+                            class="form-control"
+                            type="text"
+                            id="tipo"
+                            name="tipo"
+                            th:value="${item.tipo}"
+                            required>
+
+                </div>
+
+
+
+                <div class="form-row">
+
+                    <div class="form-label-area">
+
+                        <label for="setor">
+                            Setor
+                        </label>
+
+                        <span class="field-code">
+                            field / sector
+                        </span>
+
+                    </div>
+
+
+                    <input
+                            class="form-control"
+                            type="text"
+                            id="setor"
+                            name="setor"
+                            th:value="${item.setor}"
+                            required>
+
+                </div>
+
+
+
+                <div class="form-row">
+
+                    <div class="form-label-area">
+
+                        <label for="tamanho">
+                            Tamanho
+                        </label>
+
+                        <span class="field-code">
+                            field / size
+                        </span>
+
+                    </div>
+
+
+                    <input
+                            class="form-control"
+                            type="text"
+                            id="tamanho"
+                            name="tamanho"
+                            th:value="${item.tamanho}"
+                            required>
+
+                </div>
+
+
+
+                <div class="form-row">
+
+                    <div class="form-label-area">
+
+                        <label for="preco">
+                            Preço
+                        </label>
+
+                        <span class="field-code">
+                            field / price
+                        </span>
+
+                    </div>
+
+
+                    <input
+                            class="form-control"
+                            type="number"
+                            step="0.01"
+                            min="0"
+                            id="preco"
+                            name="preco"
+                            th:value="${item.preco}"
+                            required>
+
+                </div>
+
+
+
+                <div class="form-actions">
+
+                    <button
+                            class="primary-action"
+                            type="submit">
+
+                        Salvar alterações
+
+                    </button>
+
+
+                    <a
+                            class="secondary-action"
+                            th:href="@{/itens}">
+
+                        Cancelar
+
+                    </a>
+
+                </div>
+
+
+            </form>
+
+
+        </section>
+
+
+
+        <aside class="product-ticket edit-ticket">
+
+            <div class="ticket-top">
+
+                <span>
+                    Market Express
+                </span>
+
+                <span
+                        th:text="${'ID / ' + item.id}">
+                    ID / 01
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <div
+                        class="ticket-title"
+                        th:text="${item.nome}">
+
+                    Produto
+
+                </div>
+
+
+                <p class="ticket-text">
+
+                    Você está alterando um registro já existente
+                    no catálogo do Market Express.
+
+                </p>
+
+            </div>
+
+
+            <div class="ticket-barcode"></div>
+
+
+            <div class="ticket-code">
+
+                <span>
+                    PRODUCT UPDATE
+                </span>
+
+                <span
+                        th:text="${'MX-' + item.id}">
+                    MX-01
+                </span>
+
+            </div>
+
+        </aside>
+
+
+    </div>
+
+</main>
+
+
+</body>
+
+</html>
