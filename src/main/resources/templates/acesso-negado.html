@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0">
+
+    <title>Acesso negado | Market Express</title>
+
+    <link
+            rel="stylesheet"
+            href="/css/style.css"
+            th:href="@{/css/style.css}">
+
+    <style>
+
+        .denied-page {
+            min-height: calc(100vh - 70px);
+            display: grid;
+            grid-template-columns: 1.25fr .75fr;
+        }
+
+        .denied-main {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 70px 6vw 45px;
+            overflow: hidden;
+        }
+
+        .denied-code {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+
+            width: fit-content;
+
+            padding: 8px 12px;
+
+            border: 2px solid #111;
+            background: #c9ff3d;
+
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .denied-dot {
+            width: 9px;
+            height: 9px;
+            background: #111;
+            border-radius: 50%;
+        }
+
+        .denied-title {
+            margin: 35px 0 0;
+
+            font-size: clamp(70px, 10vw, 165px);
+            line-height: .78;
+            letter-spacing: -8px;
+            text-transform: uppercase;
+            font-weight: 950;
+        }
+
+        .denied-title .outline-text {
+            color: transparent;
+            -webkit-text-stroke: 2px #111;
+        }
+
+        .denied-info {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 35px;
+
+            max-width: 700px;
+            margin-top: 70px;
+
+            border-top: 2px solid #111;
+            padding-top: 25px;
+        }
+
+        .denied-number {
+            font-size: 52px;
+            font-weight: 950;
+            line-height: 1;
+        }
+
+        .denied-description {
+            font-size: 17px;
+            line-height: 1.5;
+            max-width: 480px;
+        }
+
+        .denied-description strong {
+            font-weight: 900;
+        }
+
+        .denied-actions {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+
+            margin-top: 35px;
+        }
+
+        .denied-back {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-height: 50px;
+            padding: 0 24px;
+
+            background: #111;
+            border: 2px solid #111;
+            color: #fff;
+
+            text-decoration: none;
+            text-transform: uppercase;
+
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 1px;
+
+            transition: .2s ease;
+        }
+
+        .denied-back:hover {
+            background: #c9ff3d;
+            color: #111;
+        }
+
+        .denied-logout-form {
+            margin: 0;
+        }
+
+        .denied-logout {
+            min-height: 50px;
+            padding: 0 24px;
+
+            background: transparent;
+            border: 2px solid #111;
+
+            color: #111;
+
+            cursor: pointer;
+
+            text-transform: uppercase;
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 1px;
+
+            transition: .2s ease;
+        }
+
+        .denied-logout:hover {
+            background: #ff5c35;
+        }
+
+
+        /* PAINEL DIREITO */
+
+        .denied-side {
+            position: relative;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            padding: 40px;
+
+            background: #111;
+            color: #fff;
+
+            overflow: hidden;
+        }
+
+        .denied-side::before {
+            content: "403";
+            position: absolute;
+
+            right: -32px;
+            bottom: -45px;
+
+            font-size: 240px;
+            font-weight: 950;
+            line-height: 1;
+
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255, 255, 255, .18);
+
+            pointer-events: none;
+        }
+
+        .side-top {
+            display: flex;
+            justify-content: space-between;
+
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .access-label {
+            margin-top: 80px;
+        }
+
+        .access-label span {
+            display: block;
+        }
+
+        .access-small {
+            margin-bottom: 10px;
+
+            color: #c9ff3d;
+
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .access-big {
+            font-size: clamp(46px, 5vw, 80px);
+            line-height: .9;
+            letter-spacing: -3px;
+            text-transform: uppercase;
+            font-weight: 950;
+        }
+
+        .restricted-box {
+            position: relative;
+            z-index: 2;
+
+            border-top: 1px solid rgba(255, 255, 255, .3);
+
+            padding-top: 25px;
+        }
+
+        .restricted-box p {
+            max-width: 310px;
+
+            margin: 0 0 25px;
+
+            color: rgba(255, 255, 255, .68);
+
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .security-tag {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 12px 0;
+
+            border-top: 1px solid rgba(255, 255, 255, .15);
+            border-bottom: 1px solid rgba(255, 255, 255, .15);
+
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 1.3px;
+            text-transform: uppercase;
+        }
+
+        .security-status {
+            color: #ff5c35;
+        }
+
+        @media (max-width: 900px) {
+
+            .denied-page {
+                grid-template-columns: 1fr;
+            }
+
+            .denied-side {
+                min-height: 420px;
+            }
+
+            .denied-title {
+                letter-spacing: -5px;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .denied-main {
+                padding: 45px 22px;
+            }
+
+            .denied-info {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .denied-title {
+                font-size: 68px;
+                letter-spacing: -4px;
+            }
+
+            .denied-actions {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .denied-back,
+            .denied-logout {
+                width: 100%;
+            }
+
+            .denied-side {
+                padding: 30px 22px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="topbar">
+
+    <a
+            class="brand"
+            th:href="@{/itens}">
+
+        <span>
+            MARKET<span class="brand-slash">/</span>
+        </span>
+
+        <span>
+            EXPRESS
+        </span>
+
+    </a>
+
+
+    <div class="topbar-center">
+        Security / Access Control
+    </div>
+
+
+    <div class="topbar-actions">
+
+        <a
+                class="topbar-action"
+                th:href="@{/itens}">
+
+            Catálogo →
+
+        </a>
+
+    </div>
+
+</header>
+
+
+
+<main class="denied-page">
+
+
+    <!-- CONTEÚDO PRINCIPAL -->
+
+    <section class="denied-main">
+
+
+        <div>
+
+            <div class="denied-code">
+
+                <span class="denied-dot"></span>
+
+                Requisição bloqueada
+
+            </div>
+
+
+            <h1 class="denied-title">
+
+                Acesso<br>
+
+                <span class="outline-text">
+                    negado.
+                </span>
+
+            </h1>
+
+
+            <div class="denied-info">
+
+
+                <div class="denied-number">
+                    403
+                </div>
+
+
+                <div>
+
+                    <div class="denied-description">
+
+                        Esta operação pertence a uma
+                        <strong>área administrativa</strong>
+                        do Market Express.
+
+                        Sua conta está autenticada, mas não possui
+                        permissão para acessar este recurso.
+
+                    </div>
+
+
+                    <div class="denied-actions">
+
+
+                        <a
+                                class="denied-back"
+                                th:href="@{/itens}">
+
+                            ← Voltar ao catálogo
+
+                        </a>
+
+
+                        <form
+                                class="denied-logout-form"
+                                th:action="@{/logout}"
+                                method="post">
+
+                            <button
+                                    class="denied-logout"
+                                    type="submit">
+
+                                Sair da conta
+
+                            </button>
+
+                        </form>
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <div style="
+            margin-top: 60px;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            opacity: .55;
+        ">
+
+            MX / SECURITY SYSTEM / HTTP 403
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- PAINEL DE SEGURANÇA -->
+
+    <aside class="denied-side">
+
+
+        <div>
+
+
+            <div class="side-top">
+
+                <span>
+                    Market Express
+                </span>
+
+                <span>
+                    SEC / 403
+                </span>
+
+            </div>
+
+
+
+            <div class="access-label">
+
+                <span class="access-small">
+                    Permission required
+                </span>
+
+
+                <span class="access-big">
+
+                    Admin<br>
+                    only.
+
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="restricted-box">
+
+
+            <p>
+
+                O recurso solicitado exige privilégios administrativos.
+                O controle de acesso impediu a execução da operação.
+
+            </p>
+
+
+            <div class="security-tag">
+
+                <span>
+                    Authorization
+                </span>
+
+                <span class="security-status">
+                    Denied
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+    </aside>
+
+
+</main>
+
+
+</body>
+
+</html>

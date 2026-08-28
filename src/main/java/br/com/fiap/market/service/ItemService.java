@@ -7,6 +7,7 @@ import br.com.fiap.market.entity.Item;
 import br.com.fiap.market.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class ItemService {
 
     // aqui lista todos produtos
     public List<ItemResponseDTO> listarItens() {
-        return itemRepository.findAll()
+        return itemRepository.findAll(Sort.by("id").ascending())
                 .stream()
                 .map(this::toResponseDTO)
                 .toList();

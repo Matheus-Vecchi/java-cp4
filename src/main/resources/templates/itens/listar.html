@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0">
+
+    <title>Catálogo | Market Express</title>
+
+    <link
+            rel="stylesheet"
+            href="/css/style.css"
+            th:href="@{/css/style.css}">
+
+</head>
+
+
+<body>
+
+
+<header class="topbar">
+
+    <a
+            class="brand"
+            th:href="@{/itens}">
+
+        <span>
+            MARKET<span class="brand-slash">/</span>
+        </span>
+
+        <span>
+            EXPRESS
+        </span>
+
+    </a>
+
+
+    <div class="topbar-center">
+        Inventory management / 2026
+    </div>
+
+
+    <div class="topbar-actions">
+
+
+        <!-- VISITANTE -->
+
+        <a
+                class="topbar-action"
+                th:if="${!autenticado}"
+                th:href="@{/login}">
+
+            Entrar →
+
+        </a>
+
+
+        <!-- USUÁRIO AUTENTICADO -->
+
+        <form
+                th:if="${autenticado}"
+                th:action="@{/logout}"
+                method="post">
+
+            <button
+                    class="topbar-action"
+                    type="submit">
+
+                Sair ↗
+
+            </button>
+
+        </form>
+
+
+    </div>
+
+</header>
+
+
+
+<main class="shell">
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+
+        <div>
+
+            <div class="hero-kicker">
+                Catálogo digital
+            </div>
+
+
+            <h1 class="hero-title">
+
+                Produtos<br>
+
+                <span class="outline">
+                    em estoque.
+                </span>
+
+            </h1>
+
+
+            <p class="hero-description">
+
+                Consulte o catálogo do Market Express e visualize
+                as informações dos produtos disponíveis no sistema.
+
+            </p>
+
+        </div>
+
+
+
+        <aside class="hero-side">
+
+
+            <div>
+
+                <span class="hero-side-label">
+                    Registros ativos
+                </span>
+
+
+                <div
+                        class="hero-count"
+                        th:text="${#lists.size(itens)}">
+
+                    0
+
+                </div>
+
+
+                <div class="hero-count-caption">
+                    produtos cadastrados
+                </div>
+
+            </div>
+
+
+
+            <!-- ADMIN -->
+
+            <a
+                    class="new-product"
+                    th:if="${admin}"
+                    th:href="@{/itens/novo}">
+
+                Novo produto
+
+            </a>
+
+
+            <!-- VISITANTE -->
+
+            <a
+                    class="new-product"
+                    th:if="${!autenticado}"
+                    th:href="@{/login}">
+
+                Acesso administrativo
+
+            </a>
+
+
+        </aside>
+
+
+    </section>
+
+
+
+    <!-- CATÁLOGO -->
+
+    <section>
+
+
+        <header class="catalog-heading">
+
+            <h2>
+                Prateleira digital
+            </h2>
+
+
+            <div class="catalog-meta">
+
+                CRUD / Oracle Database<br>
+                Market Express System
+
+            </div>
+
+        </header>
+
+
+
+        <!-- PRODUTOS -->
+
+        <div
+                class="catalog-list"
+                th:if="${!#lists.isEmpty(itens)}">
+
+
+            <article
+                    class="product-row"
+                    th:each="item : ${itens}">
+
+
+                <!-- ID -->
+
+                <div
+                        class="product-number"
+                        th:text="${'#' + item.id}">
+
+                    #01
+
+                </div>
+
+
+
+                <!-- PRODUTO -->
+
+                <div class="product-main">
+
+                    <span
+                            class="product-name"
+                            th:text="${item.nome}">
+
+                        Produto
+
+                    </span>
+
+
+                    <div class="product-code">
+
+                        <span
+                                th:text="${'MX-' + item.id}">
+
+                            MX-01
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- TIPO -->
+
+                <div class="data-block product-type">
+
+                    <span class="data-label">
+                        Tipo
+                    </span>
+
+
+                    <span
+                            class="type-tag"
+                            th:text="${item.tipo}">
+
+                        Categoria
+
+                    </span>
+
+                </div>
+
+
+
+                <!-- SETOR -->
+
+                <div class="data-block product-sector">
+
+                    <span class="data-label">
+                        Setor
+                    </span>
+
+
+                    <span
+                            class="data-value"
+                            th:text="${item.setor}">
+
+                        Setor
+
+                    </span>
+
+                </div>
+
+
+
+                <!-- TAMANHO -->
+
+                <div class="data-block product-size">
+
+                    <span class="data-label">
+                        Tamanho
+                    </span>
+
+
+                    <span
+                            class="data-value"
+                            th:text="${item.tamanho}">
+
+                        Tamanho
+
+                    </span>
+
+                </div>
+
+
+
+                <!-- PREÇO -->
+
+                <div class="price-block">
+
+                    <span class="price-label">
+                        Preço
+                    </span>
+
+
+                    <span
+                            class="price"
+                            th:text="${'R$ ' + item.preco}">
+
+                        R$ 0,00
+
+                    </span>
+
+                </div>
+
+
+
+                <!-- AÇÕES EXCLUSIVAS DO ADMIN -->
+
+                <div
+                        class="actions"
+                        th:if="${admin}">
+
+
+                    <a
+                            class="action-btn action-edit"
+                            th:href="@{/itens/{id}/editar(id=${item.id})}">
+
+                        Editar
+
+                    </a>
+
+
+
+                    <form
+                            th:action="@{/itens/{id}/excluir(id=${item.id})}"
+                            method="post">
+
+
+                        <input
+                                type="hidden"
+                                name="_method"
+                                value="delete">
+
+
+                        <button
+                                class="action-btn action-delete"
+                                type="submit">
+
+                            Excluir
+
+                        </button>
+
+
+                    </form>
+
+
+                </div>
+
+
+
+                <!-- USER / VISITANTE -->
+
+                <div
+                        class="visitor-mode"
+                        th:if="${!admin}">
+
+                    Somente visualização
+
+                </div>
+
+
+            </article>
+
+
+        </div>
+
+
+
+        <!-- ESTADO VAZIO -->
+
+        <div
+                class="empty-state"
+                th:if="${#lists.isEmpty(itens)}">
+
+
+            <div class="empty-number">
+                00
+            </div>
+
+
+
+            <div class="empty-copy">
+
+                <h3>
+                    Sua prateleira está vazia.
+                </h3>
+
+
+
+                <!-- ADMIN -->
+
+                <th:block th:if="${admin}">
+
+                    <p>
+
+                        Ainda não existem produtos cadastrados no
+                        Market Express. Adicione o primeiro item
+                        para iniciar o catálogo.
+
+                    </p>
+
+
+                    <a
+                            class="new-product"
+                            th:href="@{/itens/novo}">
+
+                        Cadastrar produto
+
+                    </a>
+
+                </th:block>
+
+
+
+                <!-- USER -->
+
+                <th:block th:if="${autenticado and !admin}">
+
+                    <p>
+
+                        Ainda não existem produtos disponíveis
+                        para visualização no catálogo.
+
+                    </p>
+
+                </th:block>
+
+
+
+                <!-- VISITANTE -->
+
+                <th:block th:if="${!autenticado}">
+
+                    <p>
+
+                        Ainda não existem produtos disponíveis
+                        para visualização no catálogo.
+
+                    </p>
+
+
+                    <a
+                            class="new-product"
+                            th:href="@{/login}">
+
+                        Acesso administrativo
+
+                    </a>
+
+                </th:block>
+
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <footer class="footer">
+
+        <span class="footer-mark">
+            MARKET/EXPRESS
+        </span>
+
+        <span>
+            Catálogo de produtos
+        </span>
+
+        <span>
+            Spring MVC + Thymeleaf
+        </span>
+
+    </footer>
+
+
+</main>
+
+
+</body>
+
+</html>

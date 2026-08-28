@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0">
+
+    <title>Acesso | Market Express</title>
+
+    <link
+            rel="stylesheet"
+            href="/css/style.css"
+            th:href="@{/css/style.css}">
+
+</head>
+
+
+<body>
+
+
+<main class="login-page">
+
+
+    <section class="login-brand-panel">
+
+
+        <div class="login-brand">
+
+            <span>
+                MARKET<span class="slash">/</span>
+            </span>
+
+            <span>
+                EXPRESS
+            </span>
+
+        </div>
+
+
+
+        <div class="login-editorial">
+
+            <div class="login-editorial-kicker">
+                Inventory management system
+            </div>
+
+
+            <h1>
+
+                Controle<br>
+                começa<br>
+                aqui.
+
+            </h1>
+
+
+            <p>
+
+                Área administrativa para gerenciamento
+                do catálogo de produtos do Market Express.
+
+            </p>
+
+        </div>
+
+
+
+        <div class="login-footnote">
+
+            <span>
+                Spring Security
+            </span>
+
+            <span>
+                Restricted Access
+            </span>
+
+        </div>
+
+
+    </section>
+
+
+
+    <section class="login-form-panel">
+
+
+        <div class="login-box">
+
+
+            <div class="login-number">
+                01
+            </div>
+
+
+            <h2>
+                Acesso administrativo
+            </h2>
+
+
+            <p>
+
+                Entre com suas credenciais para cadastrar,
+                editar ou remover produtos.
+
+            </p>
+
+
+
+            <div
+                    class="login-message"
+                    th:if="${param.error}">
+
+                Usuário ou senha inválidos.
+
+            </div>
+
+
+            <div
+                    class="login-message login-success"
+                    th:if="${param.logout}">
+
+                Sessão encerrada com sucesso.
+
+            </div>
+
+
+            <div
+                    class="login-message login-success"
+                    th:if="${param.cadastro}">
+
+                Conta criada com sucesso. Faça seu login.
+
+            </div>
+
+
+
+            <form
+                    th:action="@{/login}"
+                    method="post">
+
+
+                <div class="login-field">
+
+                    <label for="username">
+                        Usuário
+                    </label>
+
+                    <input
+                            class="login-input"
+                            type="text"
+                            id="username"
+                            name="username"
+                            autocomplete="username"
+                            placeholder="Digite seu usuário"
+                            required>
+
+                </div>
+
+
+
+                <div class="login-field">
+
+                    <label for="password">
+                        Senha
+                    </label>
+
+                    <input
+                            class="login-input"
+                            type="password"
+                            id="password"
+                            name="password"
+                            autocomplete="current-password"
+                            placeholder="Digite sua senha"
+                            required>
+
+                </div>
+
+
+
+                <button
+                        class="login-submit"
+                        type="submit">
+
+                    Entrar no sistema
+
+                </button>
+
+
+                <div style="margin-top: 24px; text-align: center;">
+
+                    <span style="
+                        color: var(--muted);
+                        font-size: 13px;
+                    ">
+
+                        Ainda não possui uma conta?
+
+                    </span>
+
+
+                    <a
+                            th:href="@{/cadastro}"
+                            style="
+                                margin-left: 6px;
+                                color: var(--ink);
+                                font-size: 13px;
+                                font-weight: 900;
+                                text-decoration: underline;
+                                text-underline-offset: 4px;
+                            ">
+
+                        Criar conta →
+
+                    </a>
+
+                </div>
+
+
+            </form>
+
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+</body>
+
+</html>

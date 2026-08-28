@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0">
+
+    <title>Criar conta | Market Express</title>
+
+    <link
+            rel="stylesheet"
+            href="/css/style.css"
+            th:href="@{/css/style.css}">
+
+</head>
+
+
+<body>
+
+
+<header class="topbar">
+
+    <a
+            class="brand"
+            th:href="@{/itens}">
+
+        <span>
+            MARKET<span class="brand-slash">/</span>
+        </span>
+
+        <span>
+            EXPRESS
+        </span>
+
+    </a>
+
+
+    <div class="topbar-center">
+        Account registration / access
+    </div>
+
+
+    <div class="topbar-actions">
+
+        <a
+                class="topbar-action"
+                th:href="@{/login}">
+
+            Já tenho conta →
+
+        </a>
+
+    </div>
+
+</header>
+
+
+
+<main class="form-shell">
+
+    <div class="form-grid">
+
+
+        <!-- FORMULÁRIO -->
+
+        <section>
+
+
+            <div class="form-kicker">
+                Novo acesso
+            </div>
+
+
+            <h1 class="form-title">
+
+                Crie sua<br>
+
+                <span class="outline">
+                    identidade.
+                </span>
+
+            </h1>
+
+
+            <p class="form-description">
+
+                Cadastre seus dados para criar um acesso ao
+                Market Express. Contas criadas nesta página
+                possuem acesso de consulta ao catálogo.
+
+            </p>
+
+
+
+            <!-- MENSAGEM DE ERRO -->
+
+            <div
+                    class="login-message"
+                    th:if="${erro}"
+                    th:text="${erro}">
+
+                Erro ao realizar cadastro.
+
+            </div>
+
+
+
+            <form
+                    class="editor-form"
+                    th:action="@{/cadastro}"
+                    method="post">
+
+
+                <!-- NOME -->
+
+                <div class="form-row">
+
+                    <div class="form-label-area">
+
+                        <label for="nome">
+                            Nome
+                        </label>
+
+                        <span class="field-code">
+                            account / display_name
+                        </span>
+
+                    </div>
+
+
+                    <input
+                            class="form-control"
+                            type="text"
+                            id="nome"
+                            name="nome"
+                            th:value="${usuario != null ? usuario.nome : ''}"
+                            placeholder="Seu nome"
+                            autocomplete="name"
+                            required>
+
+                </div>
+
+
+
+                <!-- USERNAME -->
+
+                <div class="form-row">
+
+                    <div class="form-label-area">
+
+                        <label for="username">
+                            Usuário
+                        </label>
+
+                        <span class="field-code">
+                            account / username
+                        </span>
+
+                    </div>
+
+
+                    <input
+                            class="form-control"
+                            type="text"
+                            id="username"
+                            name="username"
+                            th:value="${usuario != null ? usuario.username : ''}"
+                            placeholder="Escolha seu usuário"
+                            autocomplete="username"
+                            required>
+
+                </div>
+
+
+
+                <!-- SENHA -->
+
+                <div class="form-row">
+
+                    <div class="form-label-area">
+
+                        <label for="senha">
+                            Senha
+                        </label>
+
+                        <span class="field-code">
+                            security / password
+                        </span>
+
+                    </div>
+
+
+                    <input
+                            class="form-control"
+                            type="password"
+                            id="senha"
+                            name="senha"
+                            placeholder="Crie uma senha"
+                            autocomplete="new-password"
+                            minlength="6"
+                            required>
+
+                </div>
+
+
+
+                <!-- CONFIRMAR SENHA -->
+
+                <div class="form-row">
+
+                    <div class="form-label-area">
+
+                        <label for="confirmarSenha">
+                            Confirmar senha
+                        </label>
+
+                        <span class="field-code">
+                            security / confirmation
+                        </span>
+
+                    </div>
+
+
+                    <input
+                            class="form-control"
+                            type="password"
+                            id="confirmarSenha"
+                            name="confirmarSenha"
+                            placeholder="Digite novamente"
+                            autocomplete="new-password"
+                            minlength="6"
+                            required>
+
+                </div>
+
+
+
+                <!-- AÇÕES -->
+
+                <div class="form-actions">
+
+                    <button
+                            class="primary-action"
+                            type="submit">
+
+                        Criar conta
+
+                    </button>
+
+
+                    <a
+                            class="secondary-action"
+                            th:href="@{/login}">
+
+                        Voltar ao login
+
+                    </a>
+
+                </div>
+
+
+            </form>
+
+
+        </section>
+
+
+
+        <!-- IDENTIDADE VISUAL -->
+
+        <aside class="product-ticket">
+
+
+            <div class="ticket-top">
+
+                <span>
+                    Market Express
+                </span>
+
+                <span>
+                    Account / 01
+                </span>
+
+            </div>
+
+
+
+            <div>
+
+                <div class="ticket-title">
+
+                    Seu<br>
+                    acesso.
+
+                </div>
+
+
+                <p class="ticket-text">
+
+                    Sua senha será protegida com BCrypt
+                    antes de ser armazenada no banco de dados.
+
+                    Contas criadas pelo cadastro recebem acesso
+                    padrão de usuário, sem permissões administrativas.
+
+                </p>
+
+            </div>
+
+
+
+            <div class="ticket-barcode"></div>
+
+
+            <div class="ticket-code">
+
+                <span>
+                    USER REGISTRATION
+                </span>
+
+                <span>
+                    MX/ACCOUNT
+                </span>
+
+            </div>
+
+
+        </aside>
+
+
+    </div>
+
+</main>
+
+
+</body>
+
+</html>
