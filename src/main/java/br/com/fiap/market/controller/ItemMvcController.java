@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 
 import java.util.List;
 
@@ -21,9 +23,14 @@ public class ItemMvcController {
     private final ItemService itemService;
 
     @GetMapping
-    public String listarItens(Model model) {
+    public String listarItens(Model model, Authentication authentication) {
+        boolean autenticado = false;
+        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
+            autenticado = true;
+        }
         List<ItemResponseDTO> itens = itemService.listarItens();
         model.addAttribute("itens", itens);
+        model.addAttribute("autenticado", autenticado);
         return "itens/listar";
     }
 
