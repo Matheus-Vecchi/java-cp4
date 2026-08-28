@@ -41,7 +41,7 @@ public class SecurityConfig {
                         .requestMatchers("/css/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/cadastro").permitAll()
                         .requestMatchers(HttpMethod.POST, "/cadastro").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/acesso-negado").permitAll()
+                        .requestMatchers("/acesso-negado").permitAll()
                         // mvc que e o foco do cp1 parte 2
                         .requestMatchers(HttpMethod.GET, "/itens").permitAll()
                         .requestMatchers(HttpMethod.GET, "/itens/novo").hasRole("ADMIN")
