@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mercado Express - Produtos</title>
+</head>
+
+<body>
+
+<h1>Produtos do Mercado</h1>
+
+<a th:href="@{/itens/novo}">
+    Cadastrar novo produto
+</a>
+
+<br><br>
+
+<table border="1">
+
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Tipo</th>
+        <th>Setor</th>
+        <th>Tamanho</th>
+        <th>Preço</th>
+        <th>Ações</th>
+    </tr>
+    </thead>
+
+    <tbody>
+
+    <tr th:each="item : ${itens}">
+
+        <td th:text="${item.id}"></td>
+        <td th:text="${item.nome}"></td>
+        <td th:text="${item.tipo}"></td>
+        <td th:text="${item.setor}"></td>
+        <td th:text="${item.tamanho}"></td>
+        <td th:text="${item.preco}"></td>
+
+        <td>
+
+            <a th:href="@{/itens/{id}/editar(id=${item.id})}">
+                Editar
+            </a>
+
+            <form
+                    th:action="@{/itens/{id}/excluir(id=${item.id})}"
+                    method="post">
+
+                <!-- transforma o POST do formulário em DELETE -->
+                <input type="hidden" name="_method" value="delete">
+
+                <button type="submit">
+                    Excluir
+                </button>
+
+            </form>
+
+        </td>
+
+    </tr>
+
+    </tbody>
+
+</table>
+
+</body>
+
+</html>
